@@ -27,12 +27,12 @@ int main()
 		graph[x].push_back(y);
 		graph[y].push_back(y);
 	}
-	int count = 0;
+	int cnt = 0;
 	for (int i = 1; i <= n; i++)
 		if (!visited[i])
 		{
-			++count; // count component
+			++cnt; // count component
 			DFS(i);
 		}
-	return cout << (count == 1 ? "YES" : "NO"), 0; // if graph has only 1 component, print "YES", otherwise, print "NO".
+	return cout << (cnt == 1 ? "YES" : "NO"), 0; // if graph has only 1 component, print "YES", otherwise, print "NO".
 }
