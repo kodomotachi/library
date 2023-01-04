@@ -10,7 +10,7 @@ int n;
 stack<int> pq;
 bool visited[2002];
 
-void dfs_push(int u)
+void dfs_push(int u) // use DFS to push edge can't visited other edge and push it into stack
 {
 	visited[u] = true;
 	for (int x : graph[u])
@@ -19,7 +19,7 @@ void dfs_push(int u)
 	pq.push(u);
 }
 
-void dfs(int u)
+void dfs(int u) // use DFS normal
 {
 	visited[u] = true;
 	for (int x : graph_reverse[u])
@@ -37,22 +37,22 @@ int main()
 		int x, y;
 		cin >> x >> y;
 		graph[x].push_back(y);
-		graph_reverse[y].push_back(x);
+		graph_reverse[y].push_back(x); // push reverse verticle 
 	}
 	for (int i = 1; i <= n; i++)
 		if (!visited[i])
-			dfs_push(i);
-	int cnt = 0;
-	memset(visited, false, sizeof(visited));
+			dfs_push(i); 
+	int cnt = 0; // create variable to count strongly connected components
+	memset(visited, false, sizeof(visited)); // reset visited array
 	while (!pq.empty())
 	{
-		int x = pq.top();
+		int x = pq.top(); // use element on top stack
 		pq.pop();
 		if (!visited[x])
 		{
 			dfs(x);
-			++cnt;
+			++cnt; // increase strongly connected components by 1
 		}
 	}
-	return cout << cnt, 0;
+	return cout << cnt, 0; // print answer
 }
