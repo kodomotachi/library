@@ -39,3 +39,7 @@ int main()
 	}
 	return cout << len, 0;
 }
+
+// Algorithm's link: https://cp-algorithms.com/data_structures/sqrt_decomposition.html#description
+// Blog's link: https://vnoi.info/wiki/translate/topcoder/Range-Minimum-Query-and-Lowest-Common-Ancestor.md
+// author: KodomoTachi [19.01.2023]
