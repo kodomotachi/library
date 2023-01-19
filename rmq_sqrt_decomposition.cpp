@@ -4,7 +4,7 @@ using namespace std;
 #define ll long long
 
 // Đề bài yêu cầu:
-// Cho mảng gồm n phần tử và q tru vấn, mỗi truy vấn gồm 2 số nguyên l, r
+// Cho mảng gồm n phần tử và q truy vấn, mỗi truy vấn gồm 2 số nguyên l, r
 // Yêu cầu: đi tìm giá trị nhỏ nhất trong đoạn [l, r]
 
 // Ý tưởng bài toán đon giản, chia mảng thành các khoảng sqrt(n) phần tử và lưu giá trị nhỏ
