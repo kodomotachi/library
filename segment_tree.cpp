@@ -8,7 +8,7 @@ const int MAXN = 2e5 + 4;
 ll a[MAXN];
 ll t[4 * MAXN];
 
-void build(int id, int l, int r)
+void build(int id, int l, int r) // build array to create segment tree
 {
 	if (l == r)
 		return t[id] = a[l], void();
@@ -18,7 +18,7 @@ void build(int id, int l, int r)
 	t[id] = min(t[id * 2], t[id * 2 + 1]);
 }
 
-ll get(int id, int l, int r, int u, int v)
+ll get(int id, int l, int r, int u, int v) // get min with comfortable range [u, v]
 {
 	if (r < u || l > v)
 		return INT_MAX;
@@ -30,7 +30,7 @@ ll get(int id, int l, int r, int u, int v)
 	return min(t1, t2);
 }
 
-void update(int id, int l, int r, int p, int val)
+void update(int id, int l, int r, int p, int val) // update value in detail position and update again in Segment tree
 {
 	if (p < l || p > r)
 		return;
