@@ -69,3 +69,8 @@ int main()
 	}
 	return 0;
 }
+
+// Youtube: https://www.youtube.com/watch?v=9U1pChOERjg&t=4046s
+// Blog's link: https://vnoi.info/wiki/algo/data-structures/segment-tree-extend
+// author: KodomoTachi [23.03.2023]
+// luv Kisa
