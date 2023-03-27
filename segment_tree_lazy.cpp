@@ -8,7 +8,7 @@ const int MAXN = 2e5 + 4;
 ll t[4 * MAXN] = {-INT_MAX};
 ll lazy[4 * MAXN], a[MAXN];
 
-void build(int id, int l, int r)
+void build(int id, int l, int r) // build array to create segment tree
 {
 	if (l == r)
 		return t[id] = a[l], void();
@@ -18,7 +18,7 @@ void build(int id, int l, int r)
 	t[id] = max(t[id * 2], t[id * 2 + 1]);
 }
 
-void update_range(int id, int l, int r, int u, int v, int k)
+void update_range(int id, int l, int r, int u, int v, int k) // update range [l, r] add value from input
 {
 	if (v < l || r < u)
 		return;
@@ -34,7 +34,7 @@ void update_range(int id, int l, int r, int u, int v, int k)
 	t[id] = max(t[id * 2], t[id * 2 + 1]) + lazy[id];
 }
 
-ll get(int id, int l, int r, int u, int v)
+ll get(int id, int l, int r, int u, int v) // get maximum in element position [l, r]
 {
 	if (v < l || r < u)
 		return 0;
@@ -56,8 +56,6 @@ int main()
 	build(1, 1, n);
 	int q;
 	cin >> q;
-	for (int i = 1; i <= 4 * n; i++)
-		cout << t[i] << " \n"[i == 4 * n];
 	while (q--)
 	{
 		int query;
@@ -67,8 +65,6 @@ int main()
 			int left, right, value;
 			cin >> left >> right >> value;
 			update_range(1, 1, n, left, right, value);
-			for (int i = 1; i <= 4 * n; i++)
-				cout << t[i] << " \n"[i == 4 * n];
 		}
 		else
 		{
@@ -79,3 +75,8 @@ int main()
 	}
 	return 0;
 }
+
+// Youtube link: https://www.youtube.com/watch?v=5damMQqligI&t=1447s
+// Algorithm link: https://cp-algorithms.com/data_structures/segment_tree.html#range-updates-lazy-propagation
+// author: KodomoTachi [28.03.2023]
+// luv Kisa
