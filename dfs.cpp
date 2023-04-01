@@ -19,7 +19,7 @@ int main()
 {
 	cin.tie(0) -> sync_with_stdio(0);
 	int m;
-	cin >> n >> m;
+	cin >> n >> m; // input n and m
 	while (m--)
 	{
 		int x, y;
