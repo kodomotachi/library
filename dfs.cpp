@@ -9,8 +9,8 @@ int n;
 
 void DFS (int u)
 {
-	visited[u] = true
-	for (int x :  a[u])
+	visited[u] = true;
+	for (int x : graph[u])
 		if (!visited[x])
 			DFS(x);
 }
