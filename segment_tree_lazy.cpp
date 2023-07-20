@@ -1,82 +1,86 @@
 #include <bits/stdc++.h>
+ 
 using namespace std;
-// continue editing.... [25.05.2023]
-#define ll long long
-
-const int MAXN = 2e5 + 4;
-
-ll t[4 * MAXN] = {-INT_MAX};
-ll lazy[4 * MAXN], a[MAXN];
-
-void build(int id, int l, int r) // build array to create segment tree
-{
-	if (l == r)
-		return t[id] = a[l], void();
-	int mid = (l + r) / 2;
-	build(id * 2, l, mid);
-	build(id * 2 + 1, mid + 1, r);
-	t[id] = max(t[id * 2], t[id * 2 + 1]);
+ 
+const int inf  = 1e9 + 7;
+const int maxN = 2e5 + 7;
+ 
+int n, q;
+int a[maxN];
+long long st[4 * maxN], lazy[4 * maxN];
+ 
+void build(int id, int l, int r) {
+    if (l == r) {
+        st[id] = a[l];
+        return;
+    }
+    int mid = l + r >> 1;
+    build(2 * id, l, mid);
+    build(2 * id + 1, mid + 1, r);
+    st[id] = st[2 * id] + st[2 * id + 1];
 }
 
-void update_range(int id, int l, int r, int u, int v, int k) // update range [l, r] add value from input
-{
-	if (v < l || r < u)
-		return;
-	if (u <= l && r <= v)
+void fix(int id, int l, int r) {
+    if (!lazy[id]) return;
+
+    int mid = (l + r) >> 1;
+
+    if (l != r){
+        lazy[2 * id] += lazy[id];
+        lazy[2 * id + 1] += lazy[id];
+        st[2 * id] += lazy[id] * (mid - l + 1);
+        st[2 * id + 1] += lazy[id] * (r - mid);
+    }
+
+    lazy[id] = 0;
+}
+ 
+void update(int id, int l, int r, int u, int v, int val) {
+    if (l > v || r < u) return;
+    if (u <= l && r <= v) {
+        st[id] += (r - l + 1) * val;
+        lazy[id] += val;
+        return;
+    }
+    fix(id, l, r);
+    int mid = l + r >> 1;
+    update(2 * id, l, mid, u, v, val);
+    update(2 * id + 1, mid + 1, r, u, v, val);
+    st[id] = st[2 * id] + st[2 * id + 1];
+}
+ 
+long long get(int id, int l, int r, int u, int v) {
+    if (l >  v || r <  u) return 0;
+    if (l >= u && r <= v) return st[id];
+    fix(id, l, r);
+    int mid  = l + r >> 1;
+    long long get1 = get(2 * id, l, mid, u, v);
+    long long get2 = get(2 * id + 1, mid + 1, r, u, v);
+    return get1 + get2;
+}
+ 
+int main() {
+    cin.tie(0)->sync_with_stdio(0);
+    cin >> n >> q;
+    for (int i = 1; i <= n; ++i) cin >> a[i];
+    build(1, 1, n);
+    cout << "\n";
+    for (int i = 1; i <= 4 * n; i++)
+        cout << st[i] << " ";
+    cout << "\n";
+    while (q--)
 	{
-		t[id] += k;
-		lazy[id] += k;
-		return;
+		int type, l, r, val;
+		cin >> type;
+		if (type == 1)
+		{
+			cin >> l >> r >> val;
+			update(1, 1, n, l, r, val);
 	}
-	int mid = (l + r) / 2;
-	update_range(id * 2, l, mid, u, v, k);
-	update_range(id * 2 + 1, mid + 1, r, u, v, k);
-	t[id] = max(t[id * 2], t[id * 2 + 1]) + lazy[id];
-}
-
-ll get(int id, int l, int r, int u, int v) // get maximum in element position [l, r]
-{
-	if (v < l || r < u)
-		return 0;
-	if (u <= l && r <= v)
-		return t[id];
-	int mid = (l + r) / 2;
-	int t1 = get(id * 2, l, mid, u, v);
-	int t2 = get(id * 2 + 1, mid + 1, r, u, v);
-	return max(t1, t2) + lazy[id];
-}
-
-int main()
-{
-	cin.tie(0) -> sync_with_stdio(0);
-	int n;
-	cin >> n;
-	for (int i = 1; i <= n; i++)
-		cin >> a[i];
-	build(1, 1, n);
-	int q;
-	cin >> q;
-	while (q--)
-	{
-		int query;
-		cin >> query;
-		if (query == 1)
+	else
 		{
-			int left, right, value;
-			cin >> left >> right >> value;
-			update_range(1, 1, n, left, right, value);
-		}
-		else
-		{
-			int left, right;
-			cin >> left >> right;
-			cout << get(1, 1, n, left, right) << "\n";
+			cin >> l >> r;
+			cout << get(1, 1, n, l, r) << "\n";
 		}
 	}
-	return 0;
 }
-
-// Youtube link: https://www.youtube.com/watch?v=5damMQqligI&t=1447s
-// Algorithm link: https://cp-algorithms.com/data_structures/segment_tree.html#range-updates-lazy-propagation
-// author: KodomoTachi [28.03.2023]
-// luv Kisa
