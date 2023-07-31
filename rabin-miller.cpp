@@ -51,8 +51,8 @@ bool miller(ll n)
 
 int main() 
 {
-	cin.tie(0)->sync_with_stdio(0);
-	int m, n;
+    cin.tie(0)->sync_with_stdio(0);
+    int m, n;
     cin >> m >> n;
     for (int i=m; i<=n; i++) 
 		if (miller(i))
