@@ -25,7 +25,7 @@ int main()
 		int x, y;
 		cin >> x >> y;
 		graph[x].push_back(y);
-		graph[y].push_back(y);
+		graph[y].push_back(x);
 	}
 	int cnt = 0;
 	for (int i = 1; i <= n; i++)
