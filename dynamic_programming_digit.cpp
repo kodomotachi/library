@@ -57,5 +57,5 @@ int main()
 	return 0;
 }
 
-// [27.03.2024]
+// KodomoTachi [27.03.2024] 
 // luv Kisa
